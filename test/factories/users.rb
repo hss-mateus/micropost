@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    name { "Test User" }
+    sequence(:name) { "Test User #{_1}" }
     sequence(:email) { "test_#{_1}@email.com" }
     password_digest { User.digest("secret") }
     activated { true }

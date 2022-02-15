@@ -1,32 +1,14 @@
-User.create!(name: "Example user",
-             email: "example@railstutorial.org",
-             password: "foobar",
-             password_confirmation: "foobar",
-             admin: true,
-             activated: true,
-             activated_at: Time.zone.now)
+ActiveRecord::Base.transaction do
+  FactoryBot.create(
+    :user,
+    :admin,
+    name: "Admin",
+    email: "admin@email.com"
+  )
 
-99.times do |n|
-  User.create!(name: Faker::Name.name,
-               email: "example-#{n}@railstutorial.org",
-               password: "password",
-               password_confirmation: "password",
-               activated: true,
-               activated_at: Time.zone.now)
+  FactoryBot.create_list(:micropost, 100)
+
+  User.find_each do |user|
+    user.follow(User.all)
+  end
 end
-
-users = User.order(:created_at).take(6)
-
-50.times do
-  content = Faker::Lorem.sentence(word_count: 5)
-  users.each { |user| user.microposts.create!(content: content) }
-end
-
-users = User.all
-user = users.first
-
-following = users[2..50]
-followers = users[3..40]
-
-following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
