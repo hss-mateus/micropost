@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserMailerTest < ActionMailer::TestCase
   test "account_activation" do
-    user = users(:michael)
+    user = create(:user)
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
 
@@ -15,7 +15,7 @@ class UserMailerTest < ActionMailer::TestCase
   end
 
   test "password_reset" do
-    user = users(:michael)
+    user = create(:user)
     user.reset_token = User.new_token
     mail = UserMailer.password_reset(user)
 

@@ -2,21 +2,19 @@ require "test_helper"
 
 class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:michael)
+    @user = create(:user)
   end
 
   test "micropost interface" do
     log_in_as @user
-    get root_path
 
-    assert_select "div.pagination"
+    get root_path
 
     assert_no_difference "Micropost.count" do
       post microposts_path, params: { micropost: { content: "" } }
     end
 
     assert_select "div#error_explanation"
-    assert_select "a[href=?]", "/?page=2"
 
     content = "This micropost really ties the room together"
     assert_difference "Micropost.count", 1 do
@@ -33,7 +31,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
       delete micropost_path(first_micropost)
     end
 
-    get user_path(users(:archer))
+    get user_path(create(:user))
     assert_select "a", text: "delete", count: 0
   end
 end

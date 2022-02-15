@@ -2,13 +2,15 @@ require "test_helper"
 
 class FollowingTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:michael)
-    @other = users(:archer)
+    @user = create(:user)
+    @other = create(:user)
 
     log_in_as @user
   end
 
   test "following page" do
+    create(:relationship, follower: @user)
+
     get following_user_path @user
     assert_not @user.following.empty?
     assert_match @user.following.count.to_s, response.body
@@ -19,6 +21,8 @@ class FollowingTest < ActionDispatch::IntegrationTest
   end
 
   test "followers page" do
+    create(:relationship, followed: @user)
+
     get followers_user_path @user
     assert_not @user.followers.empty?
     assert_match @user.followers.count.to_s, response.body
@@ -61,9 +65,9 @@ class FollowingTest < ActionDispatch::IntegrationTest
   end
 
   test "feed should have the right posts" do
-    michael = users(:michael)
-    archer = users(:archer)
-    lana = users(:lana)
+    michael = create(:user)
+    archer = create(:user)
+    lana = create(:user)
 
     lana.microposts.each do |post_following|
       assert michael.feed.include? post_following
