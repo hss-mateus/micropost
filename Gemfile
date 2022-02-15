@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.7.5"
 
-gem "rails", "~> 6.0.4"
+gem "rails", "~> 6.1.4"
 gem "pg", "~> 1.3"
 gem "puma", "~> 5.6.2"
 gem "sass-rails", ">= 6"
@@ -16,7 +16,6 @@ gem "will_paginate", "~> 3.3.1"
 gem "bootstrap-will_paginate"
 gem "active_storage_validations", "~> 0.9.6"
 gem "image_processing", "~> 1.12.1"
-gem "mini_magick", "4.11.0"
 
 group :development, :test do
   gem "faker"
