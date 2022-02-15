@@ -13,8 +13,8 @@ end
 class ActionDispatch::IntegrationTest
   def log_in_as(user, password: "secret", remember_me: "1")
     post login_path, params: { session: { email: user.email,
-                                          password: password,
-                                          remember_me: remember_me } }
+                                          password:,
+                                          remember_me: } }
   end
 end
 

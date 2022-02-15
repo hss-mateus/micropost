@@ -27,8 +27,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
     name = "John Doe"
     email = "john@email.com"
-    patch user_path(@user), params: { user: { name: name,
-                                              email: email,
+    patch user_path(@user), params: { user: { name:,
+                                              email:,
                                               password: "",
                                               password_confirmation: "" } }
 
@@ -60,8 +60,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
     name = "John Doe"
     email = "john@email.com"
-    patch user_path(@user), params: { user: { name: name,
-                                              email: email,
+    patch user_path(@user), params: { user: { name:,
+                                              email:,
                                               password: "",
                                               password_confirmation: "" } }
 
