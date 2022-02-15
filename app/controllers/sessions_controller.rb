@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
@@ -10,12 +9,12 @@ class SessionsController < ApplicationController
         log_in user
         redirect_back_or user
       else
-        flash[:warning] = 'Account not activated. Check your email for the activation link'
+        flash[:warning] = "Account not activated. Check your email for the activation link"
         redirect_to root_url
       end
     else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
+      flash.now[:danger] = "Invalid email/password combination"
+      render "new"
     end
   end
 

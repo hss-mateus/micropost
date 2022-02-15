@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper
+  include Session
 
   private
 
@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     return if logged_in?
 
     store_location
-    flash[:danger] = 'Please log in'
+    flash[:danger] = "Please log in"
     redirect_to login_url
   end
 end
