@@ -4,20 +4,22 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:followed_id])
     current_user.follow(@user)
-
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
+    replace
   end
 
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow(@user)
+    replace
+  end
 
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
+  private
+
+  def replace
+    render turbo_stream: turbo_stream.replace(
+      helpers.dom_id(@user, :info),
+      partial: "shared/user_info",
+      locals: { user: @user }
+    )
   end
 end

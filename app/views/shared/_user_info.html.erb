@@ -1,6 +1,12 @@
-<%= link_to gravatar_for(current_user, size: 50), current_user %>
+<div id="<%= dom_id(user, :info) %>">
+  <div class="d-flex align-items-center gap-2 mb-2">
+    <%= gravatar_for(user, size: 60, class: "rounded-circle") %>
 
-<h1><%= current_user.name %></h1>
+    <div class="d-flex flex-column">
+      <%= link_to user.name, user, class: "text-decoration-none fw-bold h2 mb-0" %>
+      <%= render "shared/stats", user: user %>
+    </div>
+  </div>
 
-<span><%= link_to 'view my profile', current_user %></span>
-<span><%= pluralize(current_user.microposts.count, 'micropost') %></span>
+  <%= render "users/follow_form", user: user if logged_in? %>
+</div>
