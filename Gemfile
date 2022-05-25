@@ -31,6 +31,7 @@ group :development do
   gem "spring", "~> 4.0.0"
   gem "solargraph"
   gem "pry"
+  gem "annotate"
 end
 
 group :test do
