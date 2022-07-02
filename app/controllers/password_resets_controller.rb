@@ -1,35 +1,33 @@
 class PasswordResetsController < ApplicationController
-  before_action :set_user, :valid_user, :check_expiration, only: %i[edit update]
+  before_action :set_user, only: [:edit, :update]
 
   def new; end
 
   def create
-    @user = User.find_by(email: params[:password_reset][:email].downcase)
+    @user = User.find_by(email: params[:email].downcase)
 
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
 
-      flash[:info] = "Email sent with password reset instructions"
-      redirect_to root_url
+      redirect_to root_path, notice: "Email sent with password reset instructions"
     else
-      flash.now[:danger] = "Email address not found"
-      render "new", status: :unprocessable_entity
+      flash.now[:alert] = "Email address not found"
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit; end
 
   def update
-    if params[:user][:password].empty?
-      @user.errors.add(:password, "can't be empty")
-      render "edit", status: :unprocessable_entity
+    if user_params[:password].empty?
+      @user.errors.add(:password, :blank)
+      render :edit, status: :unprocessable_entity
     elsif @user.update(user_params)
       log_in @user
-      flash[:success] = "Password has been reset"
-      redirect_to @user
+      redirect_to @user, notice: "Password has been reset"
     else
-      render "edit", status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -41,18 +39,9 @@ class PasswordResetsController < ApplicationController
 
   def set_user
     @user = User.find_by(email: params[:email])
-  end
 
-  def valid_user
-    return if @user&.activated? && @user&.authenticated?(:reset, params[:id])
+    return redirect_to root_path unless @user&.activated? && @user&.authenticated?(:reset, params[:id])
 
-    redirect_to root_url
-  end
-
-  def check_expiration
-    return unless @user.password_reset_expired?
-
-    flash[:danger] = "Password reset has expired"
-    redirect_to new_password_reset_url
+    redirect_to new_password_reset_path, alert: "Password reset has expired" if @user.password_reset_expired?
   end
 end

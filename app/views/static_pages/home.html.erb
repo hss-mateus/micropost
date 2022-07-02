@@ -3,17 +3,16 @@
     <aside class="col-md-4 d-flex flex-column gap-2">
       <%= render "shared/user_info", user: current_user %>
 
-      <%= render "shared/micropost_form" %>
+      <%= render "microposts/form", micropost: @micropost %>
     </aside>
 
     <div class="col-md-8">
-      <h3>Micropost Feed</h3>
-      <%= render "shared/feed" %>
+      <%= turbo_frame_tag :feed, src: microposts_path %>
     </div>
   </div>
 <% else %>
   <div class="p-5 mb-4 bg-light rounded-3 text-center">
-    <h1 class="fw-bold">Welcome to the Sample App</h1>
+    <h1 class="fw-bold">Welcome to Micropost</h1>
 
     <p>
       This is the home page for the
@@ -21,8 +20,6 @@
       sample application.
     </p>
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "Sign up now!", [:new, :registration], class: "btn btn-lg btn-primary" %>
   </div>
-
-  <%= link_to image_tag("rails.svg", alt: "Rails logo", width: "200"), "https://rubyonrails.org/" %>
 <% end %>

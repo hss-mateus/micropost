@@ -1,4 +1,4 @@
-<li class="d-flex flex-column p-2 border-bottom">
+<li class="d-flex flex-column p-2 border-bottom" id="<%= dom_id(micropost) %>">
   <div class="d-flex align-items-center gap-2">
     <%= link_to gravatar_for(micropost.user, size: 40, class: "rounded-circle"), micropost.user %>
 

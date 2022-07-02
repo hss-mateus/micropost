@@ -4,7 +4,24 @@
 
     <div class="d-flex flex-column">
       <%= link_to user.name, user, class: "text-decoration-none fw-bold h2 mb-0" %>
-      <%= render "shared/stats", user: user %>
+
+      <div>
+        <%= link_to [user, :followings], class: "text-decoration-none" do %>
+          <strong>
+            <%= user.followings.count %>
+          </strong>
+          following
+        <% end %>
+
+        -
+
+        <%= link_to [user, :followers], class: "text-decoration-none" do %>
+          <strong>
+            <%= user.followers.count %>
+          </strong>
+          followers
+        <% end %>
+      </div>
     </div>
   </div>
 

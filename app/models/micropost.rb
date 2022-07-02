@@ -22,8 +22,6 @@ class Micropost < ApplicationRecord
 
   has_one_attached :image
 
-  default_scope -> { order(created_at: :desc) }
-
   validates :content, presence: true
 
   validates :content, length: { maximum: 140 }

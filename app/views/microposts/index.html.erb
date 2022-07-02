@@ -1,0 +1,9 @@
+<%= turbo_frame_tag :feed do %>
+  <h3>Micropost Feed</h3>
+
+  <ul id="microposts">
+    <%= render @microposts %>
+  </ul>
+
+  <%= will_paginate %>
+<% end %>

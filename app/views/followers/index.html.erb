@@ -1,18 +1,16 @@
-<% provide(:title, @title) %>
+<% provide(:title, "Followers") %>
 
 <div class="row">
   <aside class="col-md-4">
     <%= render "shared/user_info", user: @user %>
-    <div class="mb-2"></div>
-    <%= render "follow_form", user: @user if logged_in? %>
   </aside>
 
   <div class="col-md-8">
-    <h3><%= @title %></h3>
+    <h3><%= "Followers" %></h3>
 
-    <% if @users.any? %>
+    <% if @followers.any? %>
       <ul class="list-unstyled">
-        <%= render @users %>
+        <%= render @followers %>
       </ul>
 
       <%= will_paginate %>
