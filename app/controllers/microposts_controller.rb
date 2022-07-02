@@ -2,7 +2,10 @@ class MicropostsController < ApplicationController
   before_action :require_login
 
   def index
-    @microposts = current_user.feed.paginate(page: params[:page])
+    @microposts = Micropost
+      .from("(#{current_user.microposts.to_sql} UNION #{current_user.following_microposts.to_sql}) AS microposts")
+      .order(created_at: :desc)
+      .paginate(page: params[:page])
   end
 
   def create

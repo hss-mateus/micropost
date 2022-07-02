@@ -47,30 +47,10 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :following_microposts, through: :followings, source: :microposts
+
   validates :name, :email, presence: true
   validates :name, length: { maximum: 50 }
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 6 }, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-
-  def feed
-    following_ids = 'SELECT followed_id FROM relationships
-                     WHERE follower_id = :user_id'
-
-    Micropost
-      .order(created_at: :desc)
-      .where("user_id IN (#{following_ids})
-              OR user_id = :user_id", user_id: id)
-  end
-
-  def follow(other_user)
-    followings << other_user
-  end
-
-  def unfollow(other_user)
-    followings.delete other_user
-  end
-
-  def following?(other_user)
-    followings.include? other_user
-  end
 end
