@@ -2,23 +2,23 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by(email: params[:email].downcase)
-    authenticated = user&.authenticate(params[:password])
+    login(params[:email], params[:password], params[:remember_me]) do |user, failure|
+      return redirect_back_or_to root_path if user && !failure
 
-    if authenticated && user&.activated?
-      log_in user
-      return redirect_back_or_to user
-    elsif authenticated
-      flash.now[:alert] = "Account not activated. Check your email for the activation link"
-    else
-      flash.now[:alert] = "Invalid email/password combination"
+      message =
+        if failure == :inactive
+          "You have not yet activated your account"
+        else
+          "Invalid email or password"
+        end
+
+      flash.now[:alert] = message
+      render :new, status: :unprocessable_entity
     end
-
-    render :new, status: :unprocessable_entity
   end
 
   def destroy
-    log_out
+    logout
     redirect_to root_path
   end
 end

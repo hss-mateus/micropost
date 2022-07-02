@@ -7,7 +7,6 @@ gem "rails", "~> 7.0.3"
 gem "pg", "~> 1.3"
 gem "puma", "~> 5.6.2"
 gem "bootsnap", ">= 1.10.3", require: false
-gem "bcrypt", "~> 3.1.16"
 gem "will_paginate", "~> 3.3.1"
 gem "bootstrap-will_paginate"
 gem "active_storage_validations", "~> 0.9.6"
@@ -16,6 +15,7 @@ gem "importmap-rails", "~> 1.0"
 gem "turbo-rails", "~> 1.0"
 gem "sprockets-rails"
 gem "bootstrap", "~> 5.1.3"
+gem "sorcery", "~> 0.16.3"
 
 group :development, :test do
   gem "faker"

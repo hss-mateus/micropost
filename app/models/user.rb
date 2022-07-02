@@ -2,25 +2,33 @@
 #
 # Table name: users
 #
-#  id                :bigint           not null, primary key
-#  activated         :boolean
-#  activated_at      :datetime
-#  activation_digest :string
-#  admin             :boolean          default(FALSE)
-#  email             :string
-#  name              :string
-#  password_digest   :string
-#  reset_digest      :string
-#  reset_sent_at     :datetime
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                                  :bigint           not null, primary key
+#  access_count_to_reset_password_page :integer          default(0)
+#  activation_state                    :string
+#  activation_token                    :string
+#  activation_token_expires_at         :datetime
+#  admin                               :boolean          default(FALSE)
+#  crypted_password                    :string
+#  email                               :string
+#  name                                :string
+#  remember_me_token                   :string
+#  remember_me_token_expires_at        :datetime
+#  reset_password_email_sent_at        :datetime
+#  reset_password_token                :string
+#  reset_password_token_expires_at     :datetime
+#  salt                                :string
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_email  (email) UNIQUE
+#  index_users_on_activation_token      (activation_token)
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_remember_me_token     (remember_me_token)
+#  index_users_on_reset_password_token  (reset_password_token)
 #
 class User < ApplicationRecord
-  attr_accessor :activation_token, :reset_token
+  authenticates_with_sorcery!
 
   has_many :microposts, dependent: :destroy
 
@@ -39,59 +47,10 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  before_save { email.downcase! }
-  before_create :create_activation_digest
-
   validates :name, :email, presence: true
   validates :name, length: { maximum: 50 }
-  validates :email, length: { maximum: 255 }, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-
-  has_secure_password
-
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-
-    BCrypt::Password.create(string, cost:)
-  end
-
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-
-    BCrypt::Password.new(digest).is_password?(token)
-  end
-
-  def activate
-    update(
-      activated: true,
-      activated_at: Time.zone.now
-    )
-  end
-
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
-  end
-
-  def create_reset_digest
-    self.reset_token = User.new_token
-    update(
-      reset_digest: User.digest(reset_token),
-      reset_sent_at: Time.zone.now
-    )
-  end
-
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
-  end
-
-  def password_reset_expired?
-    reset_sent_at < 2.hours.ago
-  end
+  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, length: { minimum: 6 }, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
 
   def feed
     following_ids = 'SELECT followed_id FROM relationships
@@ -113,12 +72,5 @@ class User < ApplicationRecord
 
   def following?(other_user)
     followings.include? other_user
-  end
-
-  private
-
-  def create_activation_digest
-    self.activation_token = User.new_token
-    self.activation_digest = User.digest(activation_token)
   end
 end

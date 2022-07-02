@@ -1,0 +1,5 @@
+Hi <%= @user.name %>,
+
+Welcome to Micropost! Use the following link to activate your account:
+
+<%= edit_account_activation_url(@user.activation_token) %>

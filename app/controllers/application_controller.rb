@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::Base
-  include Session
+  helper_method :current_user?
+
+  def current_user?(user)
+    user.present? && current_user == user
+  end
 
   private
 
-  def require_login
-    return if logged_in?
-
-    redirect_to login_path, alert: "Please log in to continue"
+  def not_authenticated
+    redirect_to new_session_path, alert: "Please log in to continue"
   end
 end

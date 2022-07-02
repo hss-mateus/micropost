@@ -9,7 +9,6 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      @user.send_activation_email
       redirect_to root_path, notice: "Please check your email to activate your account"
     else
       render :new, status: :unprocessable_entity
