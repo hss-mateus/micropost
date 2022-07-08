@@ -4,12 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.1"
 
 gem "rails", "~> 7.0.3"
-gem "pg", "~> 1.3"
+gem "pg", "~> 1.4"
 gem "puma", "~> 5.6.2"
 gem "bootsnap", ">= 1.10.3", require: false
 gem "pagy", "~> 5.10"
 gem "active_storage_validations", "~> 0.9.6"
-gem "importmap-rails", "~> 1.0"
+gem "importmap-rails", "~> 1.1"
 gem "turbo-rails", "~> 1.0"
 gem "bootstrap", "~> 5.1.3"
 gem "sorcery", "~> 0.16.3"
