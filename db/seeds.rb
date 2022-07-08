@@ -1,7 +1,7 @@
 ActiveRecord::Base.transaction do
   FactoryBot.create(
     :user,
-    :admin,
+    admin: true,
     name: "Admin",
     email: "admin@email.com"
   )
@@ -9,6 +9,6 @@ ActiveRecord::Base.transaction do
   FactoryBot.create_list(:micropost, 100)
 
   User.find_each do |user|
-    user.follow(User.all)
+    user.followings.concat(User.all)
   end
 end
