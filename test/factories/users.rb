@@ -31,12 +31,12 @@ FactoryBot.define do
   factory :user do
     sequence(:name) { "Test User #{_1}" }
     sequence(:email) { "test_#{_1}@email.com" }
-    password_digest { User.digest("secret") }
-    activated { true }
-    activated_at { Time.zone.now }
+    password { "secret" }
 
-    trait :admin do
-      admin { true }
+    after(:create) { _1.update!(activation_state: "active") }
+
+    trait :pending_activation do
+      after(:create) { _1.update!(activation_state: "pending") }
     end
   end
 end

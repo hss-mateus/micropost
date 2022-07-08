@@ -1,21 +1,19 @@
 require "test_helper"
 
 class RelationshipsControllerTest < ActionDispatch::IntegrationTest
-  test "create should require logged-in user" do
-    assert_no_difference "Relationship.count" do
-      post relationships_path
-    end
+  test "should create a new following" do
+    follower, followed = create_list(:user, 2)
 
-    assert_redirected_to login_url
+    login_user(follower)
+    post relationships_path, params: { followed_id: followed.id }
+    assert follower.followings.include?(followed)
   end
 
-  test "destroy should require logged-in user" do
-    relationship = create(:relationship)
+  test "should delete a following" do
+    create(:relationship) => { id:, follower:, followed: }
 
-    assert_no_difference "Relationship.count" do
-      delete relationship_path relationship
-    end
-
-    assert_redirected_to login_url
+    login_user(follower)
+    delete relationship_path(id)
+    assert_not follower.followings.include?(followed)
   end
 end

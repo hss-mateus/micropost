@@ -3,21 +3,14 @@ require_relative "../config/environment"
 require "rails/test_help"
 
 class ActiveSupport::TestCase
+  include Sorcery::TestHelpers::Rails::Integration
+  include FactoryBot::Syntax::Methods
+
   parallelize(workers: :number_of_processors)
 
-  def logged_in?
-    !session[:user_id].nil?
+  def login_user(user = create(:user))
+    post session_path, params: { email: user.email, password: "secret" }
+    follow_redirect!
+    user
   end
-end
-
-class ActionDispatch::IntegrationTest
-  def log_in_as(user, password: "secret", remember_me: "1")
-    post login_path, params: { session: { email: user.email,
-                                          password:,
-                                          remember_me: } }
-  end
-end
-
-class ActiveSupport::TestCase
-  include FactoryBot::Syntax::Methods
 end

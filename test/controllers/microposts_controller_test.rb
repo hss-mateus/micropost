@@ -1,34 +1,39 @@
 require "test_helper"
 
 class MicropostsControllerTest < ActionDispatch::IntegrationTest
-  def setup
-    @micropost = create(:micropost)
+  test "should get index" do
+    create(:relationship) => { follower:, followed: }
+    create(:micropost, user: follower)
+    create(:micropost, user: followed)
+
+    login_user(follower)
+    get microposts_path
+
+    assert_response :success
   end
 
-  test "should redirect create when not logged in" do
-    assert_no_difference "Micropost.count" do
-      post microposts_path, params: { micropost: { content: "Lorem ipsum" } }
+  test "should create a new record when params are valid" do
+    user = login_user
+
+    assert_difference -> { user.microposts.count } do
+      post microposts_path, params: { micropost: { content: "test" } }
     end
-
-    assert_redirected_to login_url
   end
 
-  test "should redirect destroy when not logged in" do
-    assert_no_difference "Micropost.count" do
-      delete micropost_path(@micropost)
+  test "shouldn't create any record when params are invalid" do
+    user = login_user
+
+    assert_no_difference -> { user.microposts.count } do
+      post microposts_path, params: { micropost: { content: "" } }
     end
-
-    assert_redirected_to login_url
   end
 
-  test "should redirect destroy for wrong micropost" do
-    log_in_as create(:user)
+  test "should delete a micropost" do
     micropost = create(:micropost)
+    login_user(micropost.user)
 
-    assert_no_difference "Micropost.count" do
+    assert_difference -> { Micropost.count }, -1 do
       delete micropost_path(micropost)
     end
-
-    assert_redirected_to root_url
   end
 end

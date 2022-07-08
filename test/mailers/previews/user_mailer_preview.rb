@@ -1,14 +1,12 @@
 class UserMailerPreview < ActionMailer::Preview
-  def account_activation
-    user = User.first
-    user.activation_token = User.new_token
+  def activation_needed
+    user = User.last.tap(&:setup_activation)
 
-    UserMailer.account_activation(user)
+    UserMailer.activation_needed(user)
   end
 
   def password_reset
-    user = User.first
-    user.reset_token = User.new_token
+    user = User.last.tap(&:generate_reset_password_token!)
 
     UserMailer.password_reset(user)
   end
