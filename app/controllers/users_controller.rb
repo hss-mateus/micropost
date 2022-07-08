@@ -3,12 +3,12 @@ class UsersController < ApplicationController
   before_action :require_admin, only: :destroy
 
   def index
-    @pagy, @users = pagy(User)
+    @pagy, @users = pagy_countless(User)
   end
 
   def show
     @user = User.find(params[:id])
-    @pagy, @microposts = pagy(@user.microposts.order(created_at: :desc))
+    @pagy, @microposts = pagy_countless(@user.microposts.order(created_at: :desc))
   end
 
   def destroy

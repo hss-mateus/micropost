@@ -10,11 +10,13 @@
       <% if @user.microposts.any? %>
         <h3>Microposts (<%= @user.microposts.count %>)</h3>
 
-        <ol class="microposts">
+        <%= turbo_frame_tag :microposts do %>
           <%= render @microposts %>
-        </ol>
 
-        <%== pagy_bootstrap_nav(@pagy) %>
+          <% if @pagy.next %>
+            <%= turbo_frame_tag :microposts, loading: :lazy, src: pagy_next_url(@pagy) %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>

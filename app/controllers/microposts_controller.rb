@@ -5,7 +5,7 @@ class MicropostsController < ApplicationController
     scope = Micropost
               .from("(#{current_user.microposts.to_sql} UNION #{current_user.following_microposts.to_sql}) AS microposts")
               .order(created_at: :desc)
-    @pagy, @microposts = pagy(scope)
+    @pagy, @microposts = pagy_countless(scope)
   end
 
   def create
@@ -13,7 +13,7 @@ class MicropostsController < ApplicationController
 
     if @micropost.save
       render turbo_stream: [
-        turbo_stream.prepend(:microposts, @micropost),
+        turbo_stream.prepend(:feed, @micropost),
         replace_form_stream(Micropost.new)
       ]
     else

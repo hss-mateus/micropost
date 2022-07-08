@@ -1,9 +1,7 @@
 <%= turbo_frame_tag :feed do %>
-  <h3>Micropost Feed</h3>
+  <%= render @microposts %>
 
-  <ul id="microposts">
-    <%= render @microposts %>
-  </ul>
-
-  <%== pagy_bootstrap_nav(@pagy) %>
+  <% if @pagy.next %>
+    <%= turbo_frame_tag :feed, loading: :lazy, src: pagy_next_url(@pagy) %>
+  <% end %>
 <% end %>

@@ -2,6 +2,6 @@ class FollowingsController < ApplicationController
   def index
     @title = "Following"
     @user = User.find(params[:user_id])
-    @pagy, @followings = pagy(@user.followings)
+    @pagy, @followings = pagy_countless(@user.followings)
   end
 end

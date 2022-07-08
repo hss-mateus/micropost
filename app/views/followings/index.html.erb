@@ -9,11 +9,13 @@
     <h3><%= "Following" %></h3>
 
     <% if @followings.any? %>
-      <ul class="list-unstyled">
+      <%= turbo_frame_tag :followings do %>
         <%= render @followings %>
-      </ul>
 
-      <%== pagy_bootstrap_nav(@pagy) %>
+        <% if @pagy.next %>
+          <%= turbo_frame_tag :followings, loading: :lazy, src: pagy_next_url(@pagy) %>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
