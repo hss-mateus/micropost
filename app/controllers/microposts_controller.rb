@@ -30,7 +30,7 @@ class MicropostsController < ApplicationController
 
   private
 
-  def replace_form_stream(micropost)
+  def replace_form_stream(micropost = @micropost)
     turbo_stream.replace(
       helpers.dom_id(micropost, :form),
       partial: "microposts/form",
