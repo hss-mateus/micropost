@@ -4,6 +4,7 @@
 require "active_support/core_ext/integer/time"
 require "bootsnap/setup"
 require "bundler/setup"
+require "minitest/hooks/default"
 require "pagy/extras/bootstrap"
 require "pagy/extras/countless"
 require "pagy/extras/support"

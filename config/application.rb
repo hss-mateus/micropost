@@ -18,5 +18,11 @@ module SampleApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.after_initialize do
+      Prosopite.rails_logger = true
+      Prosopite.raise = true
+      Prosopite.min_n_queries = 3
+    end
   end
 end

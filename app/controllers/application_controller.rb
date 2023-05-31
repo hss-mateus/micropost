@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Sorcery::Controller
 
+  around_action :n_plus_one_detection unless Rails.env.production?
+
   helper_method :current_user?
 
   def current_user?(user)
@@ -10,6 +12,13 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def n_plus_one_detection
+    Prosopite.scan
+    yield
+  ensure
+    Prosopite.finish
+  end
 
   def not_authenticated
     redirect_to new_session_path, alert: "Please log in to continue"

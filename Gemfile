@@ -14,6 +14,9 @@ gem "turbo-rails"
 gem "bootstrap"
 gem "sorcery"
 gem "sorbet-runtime"
+gem "ar_lazy_preload"
+gem "prosopite"
+gem "pg_query"
 
 group :development, :test do
   gem "rubocop"
@@ -26,4 +29,8 @@ group :development do
   gem "annotate"
   gem "sorbet"
   gem "tapioca", require: false
+end
+
+group :test do
+  gem "minitest-hooks"
 end
