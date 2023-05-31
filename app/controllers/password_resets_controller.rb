@@ -1,3 +1,4 @@
+# typed: true
 class PasswordResetsController < ApplicationController
   before_action :set_user, only: [:edit, :update]
 

@@ -1,3 +1,4 @@
+# typed: true
 class UserMailer < ApplicationMailer
   def activation_needed(user)
     @user = user

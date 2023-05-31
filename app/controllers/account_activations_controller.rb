@@ -1,3 +1,4 @@
+# typed: true
 class AccountActivationsController < ApplicationController
   def edit
     if (user = User.load_from_activation_token(params[:id]))

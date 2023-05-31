@@ -1,9 +1,10 @@
+# typed: true
 class UsersController < ApplicationController
   before_action :require_login, only: [:index, :destroy]
   before_action :require_admin, only: :destroy
 
   def index
-    @pagy, @users = pagy_countless(User)
+    @pagy, @users = pagy_countless(User.all)
   end
 
   def show
@@ -20,6 +21,6 @@ class UsersController < ApplicationController
   private
 
   def require_admin
-    redirect_to(root_admin) unless current_user.admin?
+    redirect_to(root_path) unless current_user.admin?
   end
 end

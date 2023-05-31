@@ -1,5 +1,7 @@
+# typed: true
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  include Sorcery::Controller
 
   helper_method :current_user?
 

@@ -1,3 +1,4 @@
+# typed: true
 class FollowersController < ApplicationController
   def index
     @title = "Followers"

@@ -13,6 +13,7 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "bootstrap"
 gem "sorcery"
+gem "sorbet-runtime"
 
 group :development, :test do
   gem "rubocop"
@@ -23,4 +24,6 @@ end
 group :development do
   gem "web-console"
   gem "annotate"
+  gem "sorbet"
+  gem "tapioca", require: false
 end

@@ -1,3 +1,4 @@
+# typed: true
 # == Schema Information
 #
 # Table name: users
@@ -52,5 +53,5 @@ class User < ApplicationRecord
   validates :name, :email, presence: true
   validates :name, length: { maximum: 50 }
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, length: { minimum: 6 }, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :password, length: { minimum: 6 }, confirmation: true, if: ->(u) { u.new_record? || u.changes[:crypted_password] }
 end

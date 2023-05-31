@@ -1,3 +1,4 @@
+# typed: true
 class MicropostsController < ApplicationController
   before_action :require_login
 
