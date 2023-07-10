@@ -5,6 +5,8 @@ class PostsController < ApplicationController
   def index
     scope = Post
               .from("(#{current_user.posts.to_sql} UNION #{current_user.following_posts.to_sql}) AS posts")
+              .with_attached_image
+              .includes(:user)
               .order(created_at: :desc)
     @pagy, @posts = pagy_countless(scope)
   end
