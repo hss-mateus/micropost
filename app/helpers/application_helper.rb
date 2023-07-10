@@ -18,4 +18,14 @@ module ApplicationHelper
 
     image_tag(gravatar_url, attrs.merge(alt: user.name))
   end
+
+  def flash_icon(message_type)
+    case message_type
+    when "primary" then "info-circle"
+    when "success" then "check2-circle"
+    when "neutral" then "gear"
+    when "warning" then "exclamation-triangle"
+    when "danger"  then "exclamation-octagon"
+    end
+  end
 end
