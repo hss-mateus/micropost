@@ -16,7 +16,6 @@ gem "sorbet-runtime"
 gem "ar_lazy_preload"
 gem "prosopite"
 gem "pg_query"
-gem "sprockets-rails"
 gem "sassc-rails"
 
 group :development, :test do
