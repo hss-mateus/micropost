@@ -6,7 +6,7 @@ ActiveRecord::Base.transaction do
     email: "admin@email.com"
   )
 
-  FactoryBot.create_list(:micropost, 100)
+  FactoryBot.create_list(:post, 100)
 
   User.find_each do |user|
     user.followings.concat(User.all)

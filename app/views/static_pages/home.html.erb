@@ -3,11 +3,11 @@
     <aside class="col-md-4 d-flex flex-column gap-2">
       <%= render "shared/user_info", user: current_user %>
 
-      <%= render "microposts/form", micropost: @micropost %>
+      <%= render "posts/form", post: @post %>
     </aside>
 
     <div class="col-md-8">
-      <%= turbo_frame_tag :feed, src: microposts_path %>
+      <%= turbo_frame_tag :feed, src: posts_path %>
     </div>
   </div>
 <% else %>

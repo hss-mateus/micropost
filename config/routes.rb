@@ -2,9 +2,6 @@
 #
 #                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
 #                                     root GET    /                                                                                                 static_pages#home
-#                                     help GET    /help(.:format)                                                                                   static_pages#help
-#                                    about GET    /about(.:format)                                                                                  static_pages#about
-#                                  contact GET    /contact(.:format)                                                                                static_pages#contact
 #                           user_followers GET    /users/:user_id/followers(.:format)                                                               followers#index
 #                          user_followings GET    /users/:user_id/followings(.:format)                                                              followings#index
 #                                    users GET    /users(.:format)                                                                                  users#index
@@ -24,9 +21,9 @@
 #                      edit_password_reset GET    /password_resets/:id/edit(.:format)                                                               password_resets#edit
 #                           password_reset PATCH  /password_resets/:id(.:format)                                                                    password_resets#update
 #                                          PUT    /password_resets/:id(.:format)                                                                    password_resets#update
-#                               microposts GET    /microposts(.:format)                                                                             microposts#index
-#                                          POST   /microposts(.:format)                                                                             microposts#create
-#                                micropost DELETE /microposts/:id(.:format)                                                                         microposts#destroy
+#                                    posts GET    /posts(.:format)                                                                                  posts#index
+#                                          POST   /posts(.:format)                                                                                  posts#create
+#                                     post DELETE /posts/:id(.:format)                                                                              posts#destroy
 #                            relationships POST   /relationships(.:format)                                                                          relationships#create
 #                             relationship DELETE /relationships/:id(.:format)                                                                      relationships#destroy
 #         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
@@ -72,6 +69,6 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :microposts, only: [:index, :create, :destroy]
+  resources :posts, only: [:index, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
 end

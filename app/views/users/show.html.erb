@@ -7,14 +7,14 @@
     </aside>
 
     <div class="col-md-8">
-      <% if @user.microposts.any? %>
-        <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <% if @user.posts.any? %>
+        <h3>posts (<%= @user.posts.count %>)</h3>
 
-        <%= turbo_frame_tag :microposts do %>
-          <%= render @microposts %>
+        <%= turbo_frame_tag :posts do %>
+          <%= render @posts %>
 
           <% if @pagy.next %>
-            <%= turbo_frame_tag :microposts, loading: :lazy, src: pagy_next_url(@pagy) %>
+            <%= turbo_frame_tag :posts, loading: :lazy, src: pagy_next_url(@pagy) %>
           <% end %>
         <% end %>
       <% end %>

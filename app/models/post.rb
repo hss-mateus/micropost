@@ -1,7 +1,7 @@
 # typed: true
 # == Schema Information
 #
-# Table name: microposts
+# Table name: posts
 #
 #  id         :bigint           not null, primary key
 #  content    :text
@@ -11,14 +11,14 @@
 #
 # Indexes
 #
-#  index_microposts_on_user_id                 (user_id)
-#  index_microposts_on_user_id_and_created_at  (user_id,created_at)
+#  index_posts_on_user_id                 (user_id)
+#  index_posts_on_user_id_and_created_at  (user_id,created_at)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Micropost < ApplicationRecord
+class Post < ApplicationRecord
   belongs_to :user
 
   has_one_attached :image

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @pagy, @microposts = pagy_countless(@user.microposts.order(created_at: :desc))
+    @pagy, @posts = pagy_countless(@user.posts.order(created_at: :desc))
   end
 
   def destroy

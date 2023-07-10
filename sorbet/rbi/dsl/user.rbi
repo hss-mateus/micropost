@@ -254,18 +254,18 @@ class User
     def following_ids=(ids); end
 
     sig { returns(T::Array[T.untyped]) }
-    def following_micropost_ids; end
+    def following_post_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
-    def following_micropost_ids=(ids); end
+    def following_post_ids=(ids); end
 
-    # This method is created by ActiveRecord on the `User` class because it declared `has_many :following_microposts, through: :followings`.
+    # This method is created by ActiveRecord on the `User` class because it declared `has_many :following_posts, through: :followings`.
     # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
-    sig { returns(::Micropost::PrivateCollectionProxy) }
-    def following_microposts; end
+    sig { returns(::Post::PrivateCollectionProxy) }
+    def following_posts; end
 
-    sig { params(value: T::Enumerable[::Micropost]).void }
-    def following_microposts=(value); end
+    sig { params(value: T::Enumerable[::Post]).void }
+    def following_posts=(value); end
 
     # This method is created by ActiveRecord on the `User` class because it declared `has_many :followings, through: :active_relationships`.
     # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
@@ -274,20 +274,6 @@ class User
 
     sig { params(value: T::Enumerable[::User]).void }
     def followings=(value); end
-
-    sig { returns(T::Array[T.untyped]) }
-    def micropost_ids; end
-
-    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
-    def micropost_ids=(ids); end
-
-    # This method is created by ActiveRecord on the `User` class because it declared `has_many :microposts`.
-    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(::Micropost::PrivateCollectionProxy) }
-    def microposts; end
-
-    sig { params(value: T::Enumerable[::Micropost]).void }
-    def microposts=(value); end
 
     sig { returns(T::Array[T.untyped]) }
     def passive_relationship_ids; end
@@ -302,6 +288,20 @@ class User
 
     sig { params(value: T::Enumerable[::Relationship]).void }
     def passive_relationships=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def post_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def post_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `User` class because it declared `has_many :posts`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::Post::PrivateCollectionProxy) }
+    def posts; end
+
+    sig { params(value: T::Enumerable[::Post]).void }
+    def posts=(value); end
   end
 
   module GeneratedAssociationRelationMethods

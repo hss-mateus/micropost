@@ -1,6 +1,6 @@
 # typed: true
 class StaticPagesController < ApplicationController
   def home
-    @micropost = current_user&.microposts&.build
+    @post = current_user&.posts&.build
   end
 end

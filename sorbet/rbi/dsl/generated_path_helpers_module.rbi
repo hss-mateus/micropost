@@ -21,12 +21,6 @@ module GeneratedPathHelpersModule
   def edit_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def micropost_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def microposts_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def new_password_reset_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -46,6 +40,12 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def password_resets_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def post_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def posts_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end

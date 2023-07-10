@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :feed do %>
-  <%= render @microposts %>
+  <%= render @posts %>
 
   <% if @pagy.next %>
     <%= turbo_frame_tag :feed, loading: :lazy, src: pagy_next_url(@pagy) %>

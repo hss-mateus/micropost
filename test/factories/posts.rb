@@ -18,7 +18,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
-  factory :micropost do
+  factory :post do
     content { "Test Content" }
     user
   end

@@ -21,12 +21,6 @@ module GeneratedUrlHelpersModule
   def edit_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def micropost_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def microposts_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def new_password_reset_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -46,6 +40,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def password_resets_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def post_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def posts_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end

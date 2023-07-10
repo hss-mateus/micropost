@@ -9,7 +9,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get show" do
     user = create(:user)
-    create(:micropost, user:)
+    create(:post, user:)
 
     get user_path(user)
     assert_response :success
