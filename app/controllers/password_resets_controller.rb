@@ -9,7 +9,8 @@ class PasswordResetsController < ApplicationController
       .find_by(email: params[:email].downcase)
       &.deliver_reset_password_instructions!
 
-    redirect_to root_path, notice: "Instructions have been sent to your email"
+    flash[:primary] = "Instructions have been sent to your email"
+    redirect_to root_path
   end
 
   def edit; end
@@ -18,7 +19,8 @@ class PasswordResetsController < ApplicationController
     @user.password_confirmation = user_params[:password_confirmation]
 
     if @user.change_password(user_params[:password])
-      redirect_to [:new, :session], notice: "Password has been reset"
+      flash[:success] = "Password has been reset"
+      redirect_to [:new, :session]
     else
       render :edit, status: :unprocessable_entity
     end

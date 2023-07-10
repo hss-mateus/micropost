@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authenticated
-    redirect_to new_session_path, alert: "Please log in to continue"
+    flash[:warning] = "Please log in to continue"
+    redirect_to new_session_path
   end
 end

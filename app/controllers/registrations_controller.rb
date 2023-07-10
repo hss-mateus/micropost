@@ -11,7 +11,9 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       UserMailer.activation_needed(@user).deliver_later
-      redirect_to root_path, notice: "Please check your email to activate your account"
+
+      flash[:primary] = "Please check your email to activate your account"
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -23,7 +25,8 @@ class RegistrationsController < ApplicationController
 
   def update
     if current_user.update(user_params)
-      redirect_to [:edit, :registration], notice: "Profile updated", status: :see_other
+      flash[:success] = "Profile updated"
+      redirect_to [:edit, :registration], status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

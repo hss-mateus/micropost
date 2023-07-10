@@ -3,9 +3,11 @@ class AccountActivationsController < ApplicationController
   def edit
     if (user = User.load_from_activation_token(params[:id]))
       user.activate!
-      redirect_to new_session_path, notice: "Account successfuly activated"
+      flash[:success] = "Account successfuly activated"
+      redirect_to new_session_path
     else
-      redirect_to root_path, alert: "Invalid activation link"
+      flash[:warning] = "Invalid activation link"
+      redirect_to root_path
     end
   end
 end
