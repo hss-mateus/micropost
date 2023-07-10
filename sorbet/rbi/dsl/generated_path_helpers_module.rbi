@@ -9,12 +9,6 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
-  def about_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def contact_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_account_activation_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -25,9 +19,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_registration_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def help_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def micropost_path(*args); end

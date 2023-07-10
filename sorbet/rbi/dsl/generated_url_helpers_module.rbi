@@ -9,12 +9,6 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
-  def about_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def contact_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_account_activation_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -25,9 +19,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_registration_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def help_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def micropost_url(*args); end
